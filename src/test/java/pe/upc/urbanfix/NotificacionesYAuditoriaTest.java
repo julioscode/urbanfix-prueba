@@ -12,7 +12,6 @@ import pe.upc.urbanfix.incidencias.domain.*;
 import pe.upc.urbanfix.notificaciones.*;
 import pe.upc.urbanfix.nucleo.RegistroAuditoria;
 
-/** PU-09 (notificaciones) y PU-10 (auditoría y servicio): procesos de soporte. */
 public class NotificacionesYAuditoriaTest {
 
     @Test public void PU09_siEnviaALaPrimeraNoReintenta() {
