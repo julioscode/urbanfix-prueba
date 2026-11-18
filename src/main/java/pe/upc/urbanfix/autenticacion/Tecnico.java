@@ -6,4 +6,5 @@ public class Tecnico extends Usuario {
     public long getId() { return id; } public String getEspecialidad() { return especialidad; }
     public boolean isDisponible() { return disponible; } public int getCargaActiva() { return cargaActiva; }
     public void incrementarCarga() { cargaActiva++; }
+    @Override public Rol getRol() { return Rol.TECNICO; }
 }

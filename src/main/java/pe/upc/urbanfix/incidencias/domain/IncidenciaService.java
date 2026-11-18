@@ -3,7 +3,21 @@ import java.util.List;
 import pe.upc.urbanfix.autenticacion.Tecnico;
 public class IncidenciaService {
     private final List<IObservadorIncidencia> observadores;
-    public IncidenciaService(List<IObservadorIncidencia> o) { this.observadores = o; }
+    private final IncidenciaRepository repositorio;
+    public IncidenciaService(List<IObservadorIncidencia> o) { this(o, new IncidenciaRepository()); }
+    public IncidenciaService(List<IObservadorIncidencia> o, IncidenciaRepository repositorio) {
+        this.observadores = o; this.repositorio = repositorio;
+    }
+    public Incidencia registrar(RegistrarIncidenciaComando c) {
+        repositorio.buscarAbierta(c.condominioId(), c.categoria().nombre(), c.ubicacion())
+                .filter(abierta -> !c.confirmaDuplicado())
+                .ifPresent(abierta -> { throw new PosibleDuplicadoException(abierta.getCodigo()); });
+        long id = repositorio.siguienteId();
+        Incidencia i = new Incidencia(id, String.format("UF-%04d", id), c.condominioId(), c.categoria(), c.ubicacion());
+        repositorio.save(i);
+        notificar(i, "REPORTADO", c.actor());
+        return i;
+    }
     public Incidencia asignar(Incidencia i, Tecnico t, String actor) {
         i.setEstadoActual(i.getEstadoActual().asignarTecnico(i, t)); notificar(i, "ASIGNADO", actor); return i;
     }

@@ -13,3 +13,12 @@ jobs:
         with: { distribution: temurin, java-version: '17', cache: maven }
       - name: Construir y ejecutar pruebas
         run: mvn -B verify
+      - name: Resumen de cobertura
+        run: |
+          awk -F, 'NR>1 { im+=$4; ic+=$5; bm+=$6; bc+=$7; lm+=$8; lc+=$9 }
+            END { printf "Cobertura de instrucciones: %.1f%%\nCobertura de ramas: %.1f%%\nCobertura de lineas: %.1f%%\n", 100*ic/(im+ic), 100*bc/(bm+bc), 100*lc/(lm+lc) }' target/site/jacoco/jacoco.csv
+      - name: Guardar informe de cobertura
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-jacoco
+          path: target/site/jacoco
