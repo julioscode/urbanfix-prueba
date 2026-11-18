@@ -7,7 +7,6 @@ import org.junit.Test;
 import pe.upc.urbanfix.autenticacion.Tecnico;
 import pe.upc.urbanfix.incidencias.domain.*;
 
-/** PU-07: cada estado del patrón State solo acepta su transición válida. */
 public class EstadosTransicionesTest {
 
     private final Tecnico tecnico = tec(1, "Gasfitería", 0);
