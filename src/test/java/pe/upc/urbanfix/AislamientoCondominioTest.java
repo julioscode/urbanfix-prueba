@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import static pe.upc.urbanfix.TestData.*;
 import org.junit.Test;
 import pe.upc.urbanfix.incidencias.domain.IncidenciaRepository;
-public class AislamientoCondominioIT {
+public class AislamientoCondominioTest {
     @Test public void PI01_unUsuarioNoAccedeATicketsDeOtroCondominio() {
         IncidenciaRepository repo = new IncidenciaRepository();
         repo.save(inc(1, 10, "Gasfitería")); repo.save(inc(2, 20, "Gasfitería"));
