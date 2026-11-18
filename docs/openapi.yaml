@@ -1,0 +1,21 @@
+openapi: 3.0.3
+info: { title: UrbanFix API, version: 0.3.0, description: Servicios REST del backend core (Tabla 36 del TB3). }
+servers: [ { url: /api/v1 } ]
+components:
+  securitySchemes: { bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT } }
+  schemas:
+    ProblemDetail: { type: object, properties: { type: {type: string}, title: {type: string}, status: {type: integer}, detail: {type: string} } }
+security: [ { bearerAuth: [] } ]
+paths:
+  /auth/login: { post: { summary: Iniciar sesión (RFU-001, HU19), security: [], responses: { '200': {description: Token JWT}, '401': {description: Credenciales inválidas} } } }
+  /usuarios: { post: { summary: Crear usuario (RFU-003, 020, HU22), responses: { '201': {description: Creado}, '409': {description: Conflicto} } } }
+  /incidencias:
+    post: { summary: Registrar incidencia (RFU-004 a 009, 016, HU01 a HU04), responses: { '201': {description: Creada}, '409': {description: Posible duplicado} } }
+    get: { summary: Listar incidencias según rol (RFU-012, 014, 015, HU05, HU12), responses: { '200': {description: Listado paginado} } }
+  /incidencias/{id}/evidencias: { post: { summary: Adjuntar evidencia (RFU-005, 023, HU02, HU09), parameters: [ {name: id, in: path, required: true, schema: {type: integer}} ], responses: { '201': {description: Adjuntada}, '422': {description: Archivo inválido} } } }
+  /incidencias/{id}/asignacion: { post: { summary: Asignar técnico (RFU-018, 019, HU07), parameters: [ {name: id, in: path, required: true, schema: {type: integer}} ], responses: { '200': {description: Asignada}, '409': {description: Conflicto} } } }
+  /incidencias/{id}/estado: { patch: { summary: Cambiar estado (RFU-022, 023, HU08), parameters: [ {name: id, in: path, required: true, schema: {type: integer}} ], responses: { '200': {description: Estado actualizado}, '409': {description: Transición inválida} } } }
+  /incidencias/{id}/calificacion: { post: { summary: Calificar y cerrar (RFU-013, HU13), parameters: [ {name: id, in: path, required: true, schema: {type: integer}} ], responses: { '200': {description: Cerrada}, '409': {description: Estado inválido} } } }
+  /incidencias/{id}/observaciones: { post: { summary: Observación interna (RFU-017, HU06), parameters: [ {name: id, in: path, required: true, schema: {type: integer}} ], responses: { '201': {description: Registrada} } } }
+  /avisos: { post: { summary: Publicar aviso (RFU-028, HU14), responses: { '201': {description: Publicado} } } }
+  /reportes/costos: { get: { summary: Reporte de costos (RFU-025, 027, HU17, HU18, HU21), responses: { '200': {description: PDF o Excel} } } }
