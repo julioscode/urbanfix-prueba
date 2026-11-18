@@ -8,7 +8,6 @@ import org.junit.Test;
 import pe.upc.urbanfix.autenticacion.Tecnico;
 import pe.upc.urbanfix.incidencias.domain.*;
 
-/** PU-08: reglas de la estrategia de asignación y su efecto sobre la carga del técnico. */
 public class AsignacionReglasTest {
 
     private final AsignacionMenorCargaStrategy estrategia = new AsignacionMenorCargaStrategy();
