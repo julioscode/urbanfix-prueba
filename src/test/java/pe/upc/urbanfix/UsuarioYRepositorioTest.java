@@ -7,7 +7,6 @@ import org.junit.Test;
 import pe.upc.urbanfix.autenticacion.*;
 import pe.upc.urbanfix.incidencias.domain.IncidenciaRepository;
 
-/** PU-11 (fábrica de usuarios) y PU-12 (repositorio por condominio). */
 public class UsuarioYRepositorioTest {
 
     private final DatosUsuario datos = new DatosUsuario("Ana", "ana@x.pe", 7, "301", "A", "noche", "Gasfitería", true);
